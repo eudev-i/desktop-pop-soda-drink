@@ -63,7 +63,7 @@ public class ClienteDAO {
 			
 		}
 		
-		// Retornando a lista de clientes
+		// Retornando a lista de registros
 		return clientes;
 		
 	}
