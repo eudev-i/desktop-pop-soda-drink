@@ -51,6 +51,11 @@ public class VeiculoDAO {
 		}
 	}
 	
+	public void SetVeiculo(Veiculo veiculo) 
+	{
+		this.veiculo = veiculo;
+	}
+	
 	// Método para buscar todos os registros
 	public ArrayList<Veiculo> SelectAll()
 	{

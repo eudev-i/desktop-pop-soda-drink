@@ -23,6 +23,8 @@ import br.com.senaijandira.dao.VeiculoDAO;
 import br.com.senaijandira.model.Veiculo;
 
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrmVeiculo {
 
@@ -41,15 +43,15 @@ public class FrmVeiculo {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 750, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		frame.setResizable(false);
 		
 		JPanel painel_principal = new JPanel();
 		frame.getContentPane().add(painel_principal, BorderLayout.CENTER);
 		painel_principal.setLayout(null);
 		
 		JPanel painel_menu = new JPanel();
-		painel_menu.setBorder(null);
 		painel_menu.setBounds(0, 11, 200, 500);
+		painel_menu.setBorder(null);
 		painel_principal.add(painel_menu);
 		painel_menu.setLayout(null);
 		
@@ -84,26 +86,39 @@ public class FrmVeiculo {
 		painel_menu.add(btnExpedicao);
 		
 		JLabel lbl_titulo = new JLabel("Gerenciamento de Veiculos");
+		lbl_titulo.setBounds(231, 11, 461, 82);
 		lbl_titulo.setFont(new Font("Arial Black", Font.BOLD, 20));
 		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_titulo.setBounds(231, 11, 461, 82);
 		painel_principal.add(lbl_titulo);
 		
 		painel_tabela = new JPanel();
+		painel_tabela.setBounds(210, 132, 514, 248);
 		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Veiculos", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
-		painel_tabela.setBounds(210, 132, 514, 257);
 		painel_principal.add(painel_tabela);
 		painel_tabela.setLayout(null);
 		
+		JButton btnNovo = new JButton("Novo");
+		btnNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmVeiculoFormularrio();
+			}
+		});
+		btnNovo.setBounds(237, 440, 130, 40);
+		btnNovo.setFont(new Font("Arial Black", Font.BOLD, 14));
+		painel_principal.add(btnNovo);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBounds(404, 440, 130, 40);
+		btnEditar.setFont(new Font("Arial Black", Font.BOLD, 14));
+		painel_principal.add(btnEditar);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBounds(578, 440, 130, 40);
+		btnExcluir.setFont(new Font("Arial Black", Font.BOLD, 14));
+		painel_principal.add(btnExcluir);
+		
 		// Chamando a tabela
 		CriarTabela();
-		
-		JPanel painel_opcoes = new JPanel();
-		painel_opcoes.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Opções", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
-		painel_opcoes.setBackground(Color.BLUE);
-		painel_opcoes.setBounds(210, 400, 514, 72);
-		painel_principal.add(painel_opcoes);
-		painel_opcoes.setLayout(null);
 		
 	}
 	
@@ -149,6 +164,7 @@ public class FrmVeiculo {
 		scrollTabela.setViewportView(tabelaVeiculo);
 		scrollTabela.getViewport().setBackground(new Color(255, 255, 255));
 		
+		frame.setVisible(true);
 		
 	}
 	
@@ -171,4 +187,6 @@ public class FrmVeiculo {
 			modeloTabela.addRow(linha);
 		}
 	}
+	
+	
 }
