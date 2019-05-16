@@ -122,9 +122,8 @@ public class FrmVeiculoFormularrio {
 				veiculo.setCapc_volume(Double.parseDouble(txt_volume.getText()));
 				
 				VeiculoDAO veiculoDAO = new VeiculoDAO();
-				veiculoDAO.SetVeiculo(veiculo);
 				
-				veiculoDAO.Insert();
+				veiculoDAO.Insert(veiculo);
 				frame.dispose();
 				
 			}

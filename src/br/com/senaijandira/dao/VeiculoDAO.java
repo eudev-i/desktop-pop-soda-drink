@@ -17,14 +17,11 @@ public class VeiculoDAO {
 	private ResultSet resultSet;
 	
 	// Método para inserir um registro
-	public void Insert() 
+	public void Insert(Veiculo veiculo) 
 	{
 		// Instrução para inserir o registro
 		String sql = "INSERT INTO tbl_veiculo (modelo, placa, capac_peso, capac_volume) "
 				+ "VALUES (?, ?, ?, ?)";
-		
-		// Variável inicia nula para não haver conflitos
-		statement = null;
 		
 		try 
 		{
@@ -49,11 +46,6 @@ public class VeiculoDAO {
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	public void SetVeiculo(Veiculo veiculo) 
-	{
-		this.veiculo = veiculo;
 	}
 	
 	// Método para buscar todos os registros
@@ -102,6 +94,47 @@ public class VeiculoDAO {
 		
 		// Retornando a lista de registros
 		return veiculos;
+	}
+	
+	// Método que retorna um registro atráves do id
+	public Veiculo SelectById(int id) 
+	{
+		// Instânciando o objeto
+		veiculo = new Veiculo();
+		
+		// Comando SQL que será executado na classe
+		String sql = "SELECT * FROM tbl_veiculo WHERE id_veiculo = ?";
+		
+		try {
+			
+			// Variável que abre a conexão e executa a instrução SQL
+			statement = Conexao.getConnection().prepareStatement(sql);
+			
+			// Passa o valor do id para a query
+			statement.setInt(1, id);
+						
+			// Variável que recebe o retorno da query executada anteriormente 
+			resultSet = statement.executeQuery();
+			
+			// Pega o registro
+			//resultSet.next();
+			
+			// Setando os valores no objeto
+			veiculo.setId(resultSet.getInt("id_veiculo"));
+			veiculo.setModelo(resultSet.getString("modelo"));
+			veiculo.setPlaca(resultSet.getString("placa"));
+			veiculo.setCapac_peso(resultSet.getDouble("capac_peso"));
+			veiculo.setCapc_volume(resultSet.getDouble("capac_volume"));
+			
+			// Fecha conexão
+			Conexao.getConnection().close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return veiculo;
+		
 	}
 
 }
