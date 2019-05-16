@@ -18,7 +18,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FrmVeiculoFormularrio {
+public class FrmVeiculoFormulario {
 
 	private JFrame frame;
 	private JTextPane txt_modelo;
@@ -52,7 +52,7 @@ public class FrmVeiculoFormularrio {
 		return this.id;
 	}
 
-	public FrmVeiculoFormularrio(String modo) {
+	public FrmVeiculoFormulario(String modo) {
 	
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);

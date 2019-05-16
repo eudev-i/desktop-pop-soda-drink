@@ -3,16 +3,12 @@ package br.com.senaijandira.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.util.ArrayList;
-
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -101,7 +97,7 @@ public class FrmVeiculo {
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmVeiculoFormularrio("NOVO").criarFormulario(FrmVeiculo.this);
+				new FrmVeiculoFormulario("NOVO").criarFormulario(FrmVeiculo.this);
 			}
 		});
 		btnNovo.setBounds(237, 440, 130, 40);
@@ -143,6 +139,9 @@ public class FrmVeiculo {
 		tabelaVeiculo = new JTable();
 
 		modeloTabela = new DefaultTableModel() {
+
+			private static final long serialVersionUID = 1L;
+
 			// Deixar as células da tabela não editáveis
 			@Override
 			public boolean isCellEditable(int linha, int coluna) {
@@ -150,7 +149,7 @@ public class FrmVeiculo {
 			}
 		};
 
-		String[] nomeColunas = {"ID", "Modelo", "Placa", "Capacidade Peso", "Capacidade Volume"};
+		String[] nomeColunas = {"ID", "Modelo", "Placa", "Peso Máximo", "Volume Máximo"};
 
 		modeloTabela.setColumnIdentifiers(nomeColunas);
 
@@ -224,7 +223,7 @@ public class FrmVeiculo {
 			Veiculo veiculo = veiculoDAO.SelectById(id);
 			
 			
-			FrmVeiculoFormularrio formulario = new FrmVeiculoFormularrio(modo);
+			FrmVeiculoFormulario formulario = new FrmVeiculoFormulario(modo);
 			formulario.setId(veiculo.getId());
 			formulario.setModelo(veiculo.getModelo());
 			formulario.setPlaca(veiculo.getPlaca());
