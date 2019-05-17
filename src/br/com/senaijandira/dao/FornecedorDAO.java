@@ -87,7 +87,7 @@ public class FornecedorDAO {
 			return fornecedor;
 		}
 		
-		public void insert() {
+		public void insert(Fornecedor fornecedor) {
 			// Instrução para inserir o registro
 			String sql = "INSERT INTO `db_popsoda`.`tbl_fornecedor`" + 
 					"(`id_fornecedor`," + 

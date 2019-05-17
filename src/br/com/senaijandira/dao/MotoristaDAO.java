@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import br.com.senaijandira.dbutils.Conexao;
-import br.com.senaijandira.model.Fornecedor;
 import br.com.senaijandira.model.Motorista;
 
 public class MotoristaDAO {
@@ -90,16 +89,17 @@ public class MotoristaDAO {
 		}
 		
 		//----PAREI AQUI-------------------
-		public void insert() {
+		public void insert(Motorista motorista) {
 			// Instrução para inserir o registro
-			String sql = "INSERT INTO `db_popsoda`.`tbl_fornecedor`" + 
-					"(`id_fornecedor`," + 
-					"`cnpj`," + 
-					"`razao_social`," + 
-					"`nome_fantasia`," + 
-					"`telefone`," + 
-					"`email`," + 
-					"`status`) "
+			String sql = "INSERT INTO `db_popsoda`.`tbl_motorista`" + 
+					"(`id_veiculo`," + 
+					"`nome`," + 
+					"`cpf`," + 
+					"`habilitacao`," + 
+					"`categoria`," + 
+					"`validade`," + 
+					"`status`)" + 
+					" "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 			try 
@@ -107,15 +107,15 @@ public class MotoristaDAO {
 				
 				// Prepara a instrução antes que seja executada
 				stmt = Conexao.getConnection().prepareStatement(sql);
+				
+				stmt.setInt(1, motorista.getIdMotorista());
+				stmt.setString(2, motorista.getNome());
+				stmt.setString(3, motorista.getCpf());
+				stmt.setString(4, motorista.getHabilitacao());
+				stmt.setString(5, motorista.getCategoria());
+				stmt.setString(6, motorista.getValidade().toString());
+				stmt.setInt(7, motorista.getStatus());
 
-				// Passa os parâmetros da instrunção
-				stmt.setInt(1, fornecedor.getIdFornecedor());
-				stmt.setString(2, fornecedor.getCnpj());
-				stmt.setString(3, fornecedor.getRazaoSocial());
-				stmt.setString(4, fornecedor.getNomeFantasia());
-				stmt.setString(5, fornecedor.getTelefone());	
-				stmt.setString(6, fornecedor.getEmail());
-				stmt.setInt(7, fornecedor.getStatus());
 				// Executa a query
 				stmt.execute();
 
@@ -130,17 +130,18 @@ public class MotoristaDAO {
 			}
 		}
 		
-		public void update(Fornecedor fornecedor, int idFornecedor) {
+		public void update(Motorista motorista, int idMotorista) {
 			// Instrução para inserir o registro
-			String sql = "UPDATE `db_popsoda`.`tbl_fornecedor`" + 
+			String sql = "UPDATE `db_popsoda`.`tbl_motorista`" + 
 					"SET" + 
-					"`cnpj` = ?" + 
-					"`razao_social` = ?" + 
-					"`nome_fantasia` = ?" + 
-					"`telefone` = ?" + 
-					"`email` = ?" + 
+					"`id_veiculo` = ?," + 
+					"`nome` = ?," + 
+					"`cpf` = ?," + 
+					"`habilitacao` = ?," + 
+					"`categoria` = ?," + 
+					"`validade` = ?," + 
 					"`status` = ?" + 
-					"WHERE `id_fornecedor` = ?";
+					"WHERE `id_motorista` = ?";
 
 			try 
 			{
@@ -148,16 +149,18 @@ public class MotoristaDAO {
 				// Prepara a instrução antes que seja executada
 				stmt = Conexao.getConnection().prepareStatement(sql);
 
-				// Passa os parâmetros da instrunção
+				// Prepara a instrução antes que seja executada
+				stmt = Conexao.getConnection().prepareStatement(sql);
 				
-				stmt.setString(1, fornecedor.getCnpj());
-				stmt.setString(2, fornecedor.getRazaoSocial());
-				stmt.setString(3, fornecedor.getNomeFantasia());
-				stmt.setString(4, fornecedor.getTelefone());	
-				stmt.setString(5, fornecedor.getEmail());
-				stmt.setInt(6, fornecedor.getStatus());
+				stmt.setString(1, motorista.getNome());
+				stmt.setString(2, motorista.getCpf());
+				stmt.setString(3, motorista.getHabilitacao());
+				stmt.setString(4, motorista.getCategoria());
+				stmt.setString(5, motorista.getValidade().toString());
+				stmt.setInt(6, motorista.getStatus());
+				stmt.setInt(7, motorista.getIdMotorista());
 				
-				stmt.setInt(7, fornecedor.getIdFornecedor());
+				
 				// Executa a query
 				stmt.execute();
 
@@ -165,17 +168,17 @@ public class MotoristaDAO {
 				stmt.close();
 
 				// Exibe uma mensagem de sucesso
-				JOptionPane.showMessageDialog(null, "Fornecedor atualizado com sucesso!");
+				JOptionPane.showMessageDialog(null, "Motorista atualizado com sucesso!");
 			} catch (SQLException e) 
 			{
 				e.printStackTrace();
 			}
 		}
 		
-		public void delete(int idFornecedor) 
+		public void delete(int idMotorista) 
 		{
 			// Instrução para deletar o registro
-			String sql = "DELETE FROM tbl_fornecedor WHERE id_fornecedor = ?";
+			String sql = "DELETE FROM tbl_motorista WHERE id_motorista = ?";
 
 			try 
 			{
@@ -183,7 +186,7 @@ public class MotoristaDAO {
 				stmt = Conexao.getConnection().prepareStatement(sql);
 
 				// Passa os parâmetros da instrunção
-				stmt.setInt(1, idFornecedor);
+				stmt.setInt(1, idMotorista);
 
 				// Executa a query
 				stmt.execute();
@@ -192,7 +195,7 @@ public class MotoristaDAO {
 				stmt.close();
 
 				// Exibe uma mensagem de sucesso
-				JOptionPane.showMessageDialog(null, "Fornecedor excluído com sucesso!");
+				JOptionPane.showMessageDialog(null, "Motorista excluído com sucesso!");
 			} catch (SQLException e) 
 			{
 				e.printStackTrace();
