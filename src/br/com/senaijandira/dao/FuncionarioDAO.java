@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import br.com.senaijandira.dbutils.Conexao;
 import br.com.senaijandira.model.Funcionario;
-import br.com.senaijandira.model.Veiculo;
 
 public class FuncionarioDAO {
 

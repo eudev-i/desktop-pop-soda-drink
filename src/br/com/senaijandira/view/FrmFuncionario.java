@@ -1,17 +1,21 @@
 package br.com.senaijandira.view;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,11 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import br.com.senaijandira.dao.VeiculoDAO;
 import br.com.senaijandira.model.Veiculo;
 
-import javax.swing.UIManager;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class FrmVeiculo extends JFrame {
+public class FrmFuncionario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painel_conteudo;
@@ -33,11 +33,11 @@ public class FrmVeiculo extends JFrame {
 	private JScrollPane scrollTabela;
 	private DefaultTableModel modeloTabela;
 
-	public FrmVeiculo() {
+	public FrmFuncionario() {
 		setBounds(100, 100, 750, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		
+
 		painel_conteudo = new JPanel();
 		painel_conteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painel_conteudo.setLayout(new BorderLayout(0, 0));
@@ -83,7 +83,7 @@ public class FrmVeiculo extends JFrame {
 		btnExpedicao.setBounds(10, 403, 180, 50);
 		painel_menu.add(btnExpedicao);
 
-		JLabel lbl_titulo = new JLabel("Gerenciamento de Veiculos");
+		JLabel lbl_titulo = new JLabel("Gerenciamento de Funcionário");
 		lbl_titulo.setBounds(231, 11, 461, 82);
 		lbl_titulo.setFont(new Font("Arial Black", Font.BOLD, 20));
 		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -98,7 +98,7 @@ public class FrmVeiculo extends JFrame {
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmVeiculoFormulario("NOVO").criarFormulario(FrmVeiculo.this);
+				//new FrmVeiculoFormulario("NOVO").criarFormulario(FrmFuncionario.this);
 			}
 		});
 		btnNovo.setBounds(237, 440, 130, 40);
@@ -127,11 +127,9 @@ public class FrmVeiculo extends JFrame {
 
 		// Chamando a tabela
 		CriarTabela();
-		
+
 		setVisible(true);
-
 	}
-
 
 	// M�todo para criar uma tabela
 	public void CriarTabela() 
@@ -209,36 +207,36 @@ public class FrmVeiculo extends JFrame {
 			modeloTabela.addRow(linha);
 		}
 	}
-	
+
 	public void BuscarPorId(String modo) 
 	{
-		
+
 		try {
-			
+
 			int linha;
 			linha = tabela.getSelectedRow();
-			
+
 			int id;
 			id = (int) tabela.getValueAt(linha, 0);
-			
+
 			VeiculoDAO veiculoDAO = new VeiculoDAO();
 			Veiculo veiculo = veiculoDAO.SelectById(id);
-			
-			
+
+
 			FrmVeiculoFormulario formulario = new FrmVeiculoFormulario(modo);
 			formulario.setId(veiculo.getId());
 			formulario.setModelo(veiculo.getModelo());
 			formulario.setPlaca(veiculo.getPlaca());
 			formulario.setPeso(String.valueOf(veiculo.getCapac_peso()));
 			formulario.setVolume(String.valueOf(veiculo.getCapc_volume()));
-			
-			formulario.criarFormulario(FrmVeiculo.this);
-			
+
+			//formulario.criarFormulario(FrmFuncionario.this);
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um contato!", "Aten��o", JOptionPane.INFORMATION_MESSAGE);
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
