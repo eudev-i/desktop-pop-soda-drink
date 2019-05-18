@@ -21,7 +21,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.senaijandira.dao.FuncionarioDAO;
 import br.com.senaijandira.dao.VeiculoDAO;
+import br.com.senaijandira.model.Funcionario;
 import br.com.senaijandira.model.Veiculo;
 
 public class FrmFuncionario extends JFrame {
@@ -83,7 +85,7 @@ public class FrmFuncionario extends JFrame {
 		btnExpedicao.setBounds(10, 403, 180, 50);
 		painel_menu.add(btnExpedicao);
 
-		JLabel lbl_titulo = new JLabel("Gerenciamento de FuncionÃ¡rio");
+		JLabel lbl_titulo = new JLabel("Gerenciamento de Funcion\u00E1rio");
 		lbl_titulo.setBounds(231, 11, 461, 82);
 		lbl_titulo.setFont(new Font("Arial Black", Font.BOLD, 20));
 		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,14 +93,14 @@ public class FrmFuncionario extends JFrame {
 
 		painel_tabela = new JPanel();
 		painel_tabela.setBounds(210, 132, 514, 248);
-		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Veiculos", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Funcionários", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		painel_principal.add(painel_tabela);
 		painel_tabela.setLayout(null);
 
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//new FrmVeiculoFormulario("NOVO").criarFormulario(FrmFuncionario.this);
+				new FrmFuncionarioFormulario("NOVO").criarFormulario(FrmFuncionario.this);
 			}
 		});
 		btnNovo.setBounds(237, 440, 130, 40);
@@ -151,11 +153,11 @@ public class FrmFuncionario extends JFrame {
 			}
 		};
 
-		String[] nomeColunas = {"ID", "Modelo", "Placa", "Peso Mï¿½ximo", "Volume Mï¿½ximo"};
+		String[] nomeColunas = {"Matrícula", "Nome", "E-mail", "Dt Admissão"};
 
 		modeloTabela.setColumnIdentifiers(nomeColunas);
 
-		GerarVeiculos();
+		GerarFuncionario();
 
 		tabela.setModel(modeloTabela);
 		scrollTabela.setViewportView(tabela);
@@ -168,11 +170,12 @@ public class FrmFuncionario extends JFrame {
 		.setHorizontalAlignment(SwingConstants.CENTER);
 
 		tabela.getColumnModel().getColumn(0).setResizable(false);
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(15);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(1);
 		tabela.getColumnModel().getColumn(1).setResizable(false);
 		tabela.getColumnModel().getColumn(2).setResizable(false);
 		tabela.getColumnModel().getColumn(3).setResizable(false);
-		tabela.getColumnModel().getColumn(4).setResizable(false);
+		tabela.getColumnModel().getColumn(3).setPreferredWidth(20);
+
 
 		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
 		scrollTabela.setViewportView(tabela);
@@ -183,26 +186,25 @@ public class FrmFuncionario extends JFrame {
 	// Apaga toda a tabela e gera os clientes novamente
 	public void atualizarTabela(){
 		modeloTabela.setRowCount(0);
-		GerarVeiculos();
+		GerarFuncionario();
 	}
 
 
-	public void GerarVeiculos() 
+	public void GerarFuncionario() 
 	{
-		VeiculoDAO veiculoDAO = new VeiculoDAO();
-		ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
 
-		veiculos = veiculoDAO.SelectAll();
+		funcionarios = funcionarioDAO.SelectAll();
 
-		Object[] linha = new Object[5];
+		Object[] linha = new Object[4];
 
-		for (Veiculo veiculo : veiculos) 
+		for (Funcionario funcionario : funcionarios) 
 		{
-			linha[0] = veiculo.getId();
-			linha[1] = veiculo.getModelo();
-			linha[2] = veiculo.getPlaca();
-			linha[3] = veiculo.getCapac_peso() + " KG";
-			linha[4] = veiculo.getCapc_volume() + " L";
+			linha[0] = funcionario.getMatricula();
+			linha[1] = funcionario.getNome();
+			linha[2] = funcionario.getEmail();
+			linha[3] = funcionario.getDtAdmissao();
 
 			modeloTabela.addRow(linha);
 		}
