@@ -96,7 +96,7 @@ public class FrmFuncionario extends JFrame {
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmFuncionarioFormulario("NOVO").criarFormulario(FrmFuncionario.this);
+				new FrmFuncionarioFormulario("NOVO", 0, 0).criarFormulario(FrmFuncionario.this);
 			}
 		});
 		btnNovo.setBounds(237, 440, 130, 40);
@@ -220,7 +220,7 @@ public class FrmFuncionario extends JFrame {
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			Funcionario funcionario = funcionarioDAO.SelectById(id);
 
-			FrmFuncionarioFormulario formulario = new FrmFuncionarioFormulario(modo);
+			FrmFuncionarioFormulario formulario = new FrmFuncionarioFormulario(modo, funcionario.getIdCargo(), funcionario.getIdPerfil());
 			
 			formulario.setTxt_nome(funcionario.getNome());
 			formulario.setTxt_email(funcionario.getEmail());
@@ -230,12 +230,12 @@ public class FrmFuncionario extends JFrame {
 			formulario.setTxt_usuario(funcionario.getUsuario());
 			formulario.setTxt_senha(funcionario.getSenha());
 			formulario.setTxt_dtAdmissao(funcionario.getDtAdmissao());
+			formulario.setId(funcionario.getMatricula());
 			
 			formulario.criarFormulario(this);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um contato!", "Aten��o", JOptionPane.INFORMATION_MESSAGE);
-			e.printStackTrace();
 		}
 
 	}

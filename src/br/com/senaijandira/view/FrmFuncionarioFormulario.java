@@ -77,7 +77,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 		this.id = id;
 	}
 
-	public FrmFuncionarioFormulario(String modo) {
+	public FrmFuncionarioFormulario(String modo, int idCargo, int idPerfil) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 499);
 		painelConteudo = new JPanel();
@@ -119,13 +119,13 @@ public class FrmFuncionarioFormulario extends JFrame {
 		combo_cargo.setBounds(29, 187, 169, 20);
 		painel_principal.add(combo_cargo);
 		
-		ComboCargo();
+		ComboCargo(idCargo);
 				
 		combo_perfil = new JComboBox<Perfil>();
 		combo_perfil.setBounds(226, 187, 169, 20);
 		painel_principal.add(combo_perfil);
 		
-		ComboPerfil();
+		ComboPerfil(idPerfil);
 		
 		txt_telefone = new JTextField();
 		txt_telefone.setBounds(29, 257, 100, 20);
@@ -282,7 +282,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 		painel_principal.add(lbl_dtAdmissao);
 	}
 	
-	public void ComboCargo() 
+	public void ComboCargo(int id) 
 	{
 		ArrayList<Cargo> cargos = new ArrayList<Cargo>();
 		cargos = new CargoDAO().SelectAll();
@@ -290,11 +290,16 @@ public class FrmFuncionarioFormulario extends JFrame {
 		for(Cargo cargo : cargos) 
 		{
 			combo_cargo.addItem(cargo);
+			
+			if (cargo.getId() == id) {
+				combo_cargo.setSelectedItem(cargo);
+			}
+			
 		}
 		
 	}
 	
-	public void ComboPerfil() 
+	public void ComboPerfil(int id) 
 	{
 		ArrayList<Perfil> perfis = new ArrayList<Perfil>();
 		perfis = new PerfilDAO().SelectAll();
@@ -302,6 +307,10 @@ public class FrmFuncionarioFormulario extends JFrame {
 		for(Perfil perfil : perfis) 
 		{
 			combo_perfil.addItem(perfil);
+			
+			if (perfil.getId() == id) {
+				combo_perfil.setSelectedItem(perfil);
+			}
 		}
 	}
 	
