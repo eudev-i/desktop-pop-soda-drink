@@ -61,4 +61,44 @@ public class CargoDAO {
 
 	}
 
+	// Método que retorna um registro atráves do id
+	public Cargo SelectById(int id) 
+	{
+		// Instânciando o objeto
+		cargo = new Cargo();
+
+		// Comando SQL que será executado na classe
+		String sql = "SELECT * FROM tbl_cargo WHERE id_cargo = ?";
+
+		try {
+
+			// Variável que abre a conexão e executa a instrução SQL
+			statement = Conexao.getConnection().prepareStatement(sql);
+
+			// Passa o valor do id para a query
+			statement.setInt(1, id);
+
+			// Variável que recebe o retorno da query executada anteriormente 
+			resultSet = statement.executeQuery();
+
+			// Inicia o result set
+			resultSet.next();
+
+			// Setando os valores no objeto
+			cargo.setId(resultSet.getInt("id_cargo"));
+			cargo.setNome(resultSet.getString("nome"));
+
+			statement.close();
+
+			// Fecha conexão
+			Conexao.getConnection().close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cargo;
+
+	}
+
 }

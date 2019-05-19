@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,11 +19,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 import br.com.senaijandira.dao.FuncionarioDAO;
-import br.com.senaijandira.dao.VeiculoDAO;
 import br.com.senaijandira.model.Funcionario;
-import br.com.senaijandira.model.Veiculo;
 
 public class FrmFuncionario extends JFrame {
 
@@ -221,18 +217,22 @@ public class FrmFuncionario extends JFrame {
 			int id;
 			id = (int) tabela.getValueAt(linha, 0);
 
-			VeiculoDAO veiculoDAO = new VeiculoDAO();
-			Veiculo veiculo = veiculoDAO.SelectById(id);
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			Funcionario funcionario = funcionarioDAO.SelectById(id);
 
-
-			FrmVeiculoFormulario formulario = new FrmVeiculoFormulario(modo);
-			formulario.setId(veiculo.getId());
-			formulario.setModelo(veiculo.getModelo());
-			formulario.setPlaca(veiculo.getPlaca());
-			formulario.setPeso(String.valueOf(veiculo.getCapac_peso()));
-			formulario.setVolume(String.valueOf(veiculo.getCapc_volume()));
-
-			//formulario.criarFormulario(FrmFuncionario.this);
+			FrmFuncionarioFormulario formulario = new FrmFuncionarioFormulario(modo);
+			
+			formulario.setId(funcionario.getMatricula());
+			formulario.setTxt_nome(funcionario.getNome());
+			formulario.setTxt_email(funcionario.getEmail());
+			formulario.setTxt_telefone(funcionario.getTelefone());
+			formulario.setTxt_celular(funcionario.getCelular());
+			formulario.setTxt_dtNasc(funcionario.getDtAdmissao());
+			formulario.setTxt_usuario(funcionario.getUsuario());
+			formulario.setTxt_senha(funcionario.getSenha());
+			formulario.setTxt_dtAdmissao(funcionario.getDtAdmissao());
+			
+			formulario.criarFormulario(FrmFuncionario.this);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um contato!", "Aten��o", JOptionPane.INFORMATION_MESSAGE);

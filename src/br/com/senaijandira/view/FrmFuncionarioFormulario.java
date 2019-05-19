@@ -13,6 +13,7 @@ import br.com.senaijandira.model.Cargo;
 import br.com.senaijandira.model.Funcionario;
 import br.com.senaijandira.model.Perfil;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -38,9 +39,46 @@ public class FrmFuncionarioFormulario extends JFrame {
 	private JTextField txt_dtAdmissao;
 	private JComboBox<Cargo> combo_cargo;
 	private JComboBox<Perfil> combo_perfil;
+	private int id;
+
+	public void setTxt_nome(String txt_nome) {
+		this.txt_nome.setText(txt_nome);
+	}
+
+	public void setTxt_email(String txt_email) {
+		this.txt_email.setText(txt_email);
+	}
+
+	public void setTxt_telefone(String txt_telefone) {
+		this.txt_telefone.setText(txt_telefone);
+	}
+
+	public void setTxt_celular(String txt_celular) {
+		this.txt_celular.setText(txt_celular);
+	}
+
+	public void setTxt_dtNasc(Date txt_dtNasc) {
+		this.txt_dtNasc.setText(String.valueOf(txt_dtNasc));
+	}
+
+	public void setTxt_usuario(String txt_usuario) {
+		this.txt_usuario.setText(txt_usuario);
+	}
+
+	public void setTxt_senha(String txt_senha) {
+		this.txt_senha.setText(txt_senha);
+	}
+
+	public void setTxt_dtAdmissao(Date txt_dtAdmissao) {
+		this.txt_dtAdmissao.setText(String.valueOf(txt_dtAdmissao));
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public FrmFuncionarioFormulario(String modo) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 499);
 		painelConteudo = new JPanel();
 		painelConteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -52,12 +90,20 @@ public class FrmFuncionarioFormulario extends JFrame {
 		painelConteudo.add(painel_principal, BorderLayout.CENTER);
 		painel_principal.setLayout(null);
 		
-		JLabel lblNovoFuncionrio = new JLabel("NOVO FUNCION\u00C1RIO");
-		lblNovoFuncionrio.setForeground(Color.WHITE);
-		lblNovoFuncionrio.setFont(new Font("Arial Black", Font.BOLD, 18));
-		lblNovoFuncionrio.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNovoFuncionrio.setBounds(10, 11, 404, 56);
-		painel_principal.add(lblNovoFuncionrio);
+		JLabel lbl_titulo = new JLabel();
+		lbl_titulo.setForeground(Color.WHITE);
+		lbl_titulo.setFont(new Font("Arial Black", Font.BOLD, 18));
+		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_titulo.setBounds(10, 11, 404, 56);
+		painel_principal.add(lbl_titulo);
+		
+		if (modo.equals("NOVO")) {
+			lbl_titulo.setText("NOVO FUNCIONÁRIO");
+		}else if (modo.equals("EDITAR")) {
+			lbl_titulo.setText("EDITAR FUNCIONÁRIO");
+		}else if (modo.equals("EXCLUIR")) {
+			lbl_titulo.setText("EXCLUIR FUNCIONÁRIO");
+		}
 		
 		txt_nome = new JTextField();
 		txt_nome.setBounds(29, 117, 169, 20);
@@ -74,7 +120,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 		painel_principal.add(combo_cargo);
 		
 		ComboCargo();
-		
+				
 		combo_perfil = new JComboBox<Perfil>();
 		combo_perfil.setBounds(226, 187, 169, 20);
 		painel_principal.add(combo_perfil);
@@ -111,7 +157,27 @@ public class FrmFuncionarioFormulario extends JFrame {
 		txt_dtAdmissao.setBounds(295, 327, 100, 20);
 		painel_principal.add(txt_dtAdmissao);
 		
-		JButton btnOperacao = new JButton("SALVAR");
+		JButton btnOperacao = new JButton();
+		
+		if (modo.equals("EXCLUIR")) {
+			
+			btnOperacao.setText("EXCLUIR");
+			
+			txt_nome.setEnabled(false);
+			txt_email.setEnabled(false);
+			txt_telefone.setEnabled(false);
+			txt_celular.setEnabled(false);
+			txt_dtNasc.setEnabled(false);
+			txt_usuario.setEnabled(false);
+			txt_senha.setEnabled(false);
+			txt_dtAdmissao.setEnabled(false);
+			combo_cargo.setEnabled(false);
+			combo_perfil.setEnabled(false);
+			
+		}else {
+			btnOperacao.setText("SALVAR");
+		}
+		
 		btnOperacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -131,7 +197,19 @@ public class FrmFuncionarioFormulario extends JFrame {
 				funcionario.setDtNasc(Date.valueOf(txt_dtNasc.getText()));
 				funcionario.setIdPerfil(perfil.getId());
 				
-				new FuncionarioDAO().Insert(funcionario);
+				if (modo.equals("NOVO")) {
+					new FuncionarioDAO().Insert(funcionario);
+				}else if (modo.equals("EDITAR")) {
+					new FuncionarioDAO().Update(funcionario, id);
+				}else if (modo.equals("EXCLUIR")) {
+					int resposta = JOptionPane.showConfirmDialog(null,
+							"Tem certeza que deseja excluir " + funcionario.getNome() + "?", "Atenção",
+							JOptionPane.YES_NO_OPTION);
+					
+					if (resposta == 0) {
+						new FuncionarioDAO().Delete(id);
+					}
+				}
 				
 				frmFuncionario.atualizarTabela();
 				
@@ -213,6 +291,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 		{
 			combo_cargo.addItem(cargo);
 		}
+		
 	}
 	
 	public void ComboPerfil() 
