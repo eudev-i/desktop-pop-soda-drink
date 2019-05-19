@@ -222,7 +222,6 @@ public class FrmFuncionario extends JFrame {
 
 			FrmFuncionarioFormulario formulario = new FrmFuncionarioFormulario(modo);
 			
-			formulario.setId(funcionario.getMatricula());
 			formulario.setTxt_nome(funcionario.getNome());
 			formulario.setTxt_email(funcionario.getEmail());
 			formulario.setTxt_telefone(funcionario.getTelefone());
@@ -232,7 +231,7 @@ public class FrmFuncionario extends JFrame {
 			formulario.setTxt_senha(funcionario.getSenha());
 			formulario.setTxt_dtAdmissao(funcionario.getDtAdmissao());
 			
-			formulario.criarFormulario(FrmFuncionario.this);
+			formulario.criarFormulario(this);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um contato!", "Aten��o", JOptionPane.INFORMATION_MESSAGE);
