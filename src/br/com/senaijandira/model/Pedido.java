@@ -88,7 +88,7 @@ public class Pedido {
 	public String getRazaoSocial() {
 		return razaoSocial;
 	}
-	public void setRazaoSocialridica(String razaoSocial) {
+	public void setRazaoSocial(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
 	}
 

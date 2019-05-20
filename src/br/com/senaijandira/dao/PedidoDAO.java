@@ -25,7 +25,7 @@ public class PedidoDAO {
 
 		try 
 		{
-			// Prepara a instrução��o antes que seja executada
+			// Prepara a instrução antes que seja executada
 			statement = Conexao.getConnection().prepareStatement(sql);
 
 			// Passa os parâmetros da instrução
@@ -72,17 +72,18 @@ public class PedidoDAO {
 				pedido = new Pedido();
 
 				// Setando os valores no objeto
-				pedido.setId(id);
-				pedido.setCnpj(cnpj);
-				pedido.setValorTotal(valorTotal);
-				pedido.setPesoTotal(pesoTotal);
-				pedido.setVolumeTotal(volumeTotal);
-				pedido.setLogradouro(logradouro);
-				pedido.setCidade(cidade);
-				pedido.setUf(uf);
-				pedido.setDtCompra(dtCompra);
-				pedido.setStatusPedido(statusPedido);
-				pedido.setStatusPedido(statusPedido);
+				pedido.setId(resultSet.getInt("id_c_produto"));
+				pedido.setCnpj(resultSet.getString("cnpj"));
+				pedido.setValorTotal(resultSet.getDouble("valor_total"));
+				pedido.setPesoTotal(resultSet.getDouble("peso_total"));
+				pedido.setVolumeTotal(resultSet.getDouble("volume_total"));
+				pedido.setLogradouro(resultSet.getString("logradouro"));
+				pedido.setBairro(resultSet.getString("bairro"));
+				pedido.setCidade(resultSet.getString("cidade"));
+				pedido.setUf(resultSet.getString("uf"));
+				pedido.setDtCompra(resultSet.getDate("dt_compra"));
+				pedido.setStatusPedido(resultSet.getString("status_pedido"));
+				pedido.setRazaoSocial(resultSet.getString("razao_social"));
 
 				// Adicionando o objeto ao array
 				pedidos.add(pedido);
@@ -108,8 +109,11 @@ public class PedidoDAO {
 		// Instânciando o objeto
 		pedido = new Pedido();
 		
-		// Comando SQL que ser� executado na classe
-		String sql = "";
+		// Comando SQL que será executado na classe
+		String sql = "SELECT pedido.*, pj.razao_social "
+				+ "FROM tbl_compra_produto AS pedido "
+				+ "INNER JOIN tbl_pessoa_juridica AS pj ON pedido.cnpj = pj.cnpj "
+				+ "WHERE id_c_produto = ?";
 
 		try {
 
@@ -117,7 +121,7 @@ public class PedidoDAO {
 			statement = Conexao.getConnection().prepareStatement(sql);
 
 			// Passa o valor do id para a query
-
+			statement.setInt(1, id);
 			// Variável que recebe o retorno da query executada anteriormente 
 			resultSet = statement.executeQuery();
 
@@ -125,17 +129,18 @@ public class PedidoDAO {
 			resultSet.next();
 
 			// Setando os valores no objeto
-			pedido.setId(id);
-			pedido.setCnpj(cnpj);
-			pedido.setValorTotal(valorTotal);
-			pedido.setPesoTotal(pesoTotal);
-			pedido.setVolumeTotal(volumeTotal);
-			pedido.setLogradouro(logradouro);
-			pedido.setCidade(cidade);
-			pedido.setUf(uf);
-			pedido.setDtCompra(dtCompra);
-			pedido.setStatusPedido(statusPedido);
-			pedido.setStatusPedido(statusPedido);
+			pedido.setId(resultSet.getInt("id_c_produto"));
+			pedido.setCnpj(resultSet.getString("cnpj"));
+			pedido.setValorTotal(resultSet.getDouble("valor_total"));
+			pedido.setPesoTotal(resultSet.getDouble("peso_total"));
+			pedido.setVolumeTotal(resultSet.getDouble("volume_total"));
+			pedido.setLogradouro(resultSet.getString("logradouro"));
+			pedido.setBairro(resultSet.getString("bairro"));
+			pedido.setCidade(resultSet.getString("cidade"));
+			pedido.setUf(resultSet.getString("uf"));
+			pedido.setDtCompra(resultSet.getDate("dt_compra"));
+			pedido.setStatusPedido(resultSet.getString("status_pedido"));
+			pedido.setRazaoSocial("razao_social");
 
 			statement.close();
 
