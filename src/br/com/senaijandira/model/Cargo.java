@@ -6,7 +6,7 @@ public class Cargo {
 	private int id;
 	private String nome;
 	
-	// Métodos getters e setters
+	// MÃ©todos getters e setters
 	public int getId() {
 		return id;
 	}
