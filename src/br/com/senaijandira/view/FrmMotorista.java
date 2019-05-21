@@ -1,28 +1,30 @@
 package br.com.senaijandira.view;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import br.com.senaijandira.dao.ProdutoDAO;
-import br.com.senaijandira.model.Produto;
 
-public class FrmProduto extends JFrame {
+import br.com.senaijandira.dao.MotoristaDAO;
+import br.com.senaijandira.model.Motorista;
+
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class FrmMotorista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painel_conteudo;
@@ -30,14 +32,12 @@ public class FrmProduto extends JFrame {
 	private JTable tabela;
 	private JScrollPane scrollTabela;
 	private DefaultTableModel modeloTabela;
-	
-	private ProdutoDAO dao;
 
-	public FrmProduto() {
-		setBounds(100, 100, 750, 567);
+	public FrmMotorista() {
+		setBounds(100, 100, 750, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-
+		
 		painel_conteudo = new JPanel();
 		painel_conteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painel_conteudo.setLayout(new BorderLayout(0, 0));
@@ -83,37 +83,61 @@ public class FrmProduto extends JFrame {
 		btnExpedicao.setBounds(10, 403, 180, 50);
 		painel_menu.add(btnExpedicao);
 
-		JLabel lbl_titulo = new JLabel("Gerenciamento de Produtos");
+		JLabel lbl_titulo = new JLabel("Gerenciamento de Motoristas");
 		lbl_titulo.setBounds(231, 11, 461, 82);
 		lbl_titulo.setFont(new Font("Arial Black", Font.BOLD, 20));
 		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		painel_principal.add(lbl_titulo);
 
 		painel_tabela = new JPanel();
-		painel_tabela.setBounds(210, 132, 514, 337);
-		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Produtos", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		painel_tabela.setBounds(210, 132, 514, 248);
+		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Motoristas", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		painel_principal.add(painel_tabela);
 		painel_tabela.setLayout(null);
-		
-		JButton btnVisualizar = new JButton("Visualizar");
-		btnVisualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				receberDados();
+
+		JButton btnNovo = new JButton("Novo");
+		btnNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmMotoristaUnico("NOVO").criarFormulario(FrmMotorista.this);
 			}
 		});
-		btnVisualizar.setFont(new Font("Arial Black", Font.BOLD, 14));
-		btnVisualizar.setBounds(210, 478, 180, 50);
-		painel_principal.add(btnVisualizar);
-		CriarTabela();
+		btnNovo.setBounds(237, 440, 130, 40);
+		btnNovo.setFont(new Font("Arial Black", Font.BOLD, 14));
+		painel_principal.add(btnNovo);
 
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BuscarPorId("EDITAR");
+			}
+		});
+		btnEditar.setBounds(404, 440, 130, 40);
+		btnEditar.setFont(new Font("Arial Black", Font.BOLD, 14));
+		painel_principal.add(btnEditar);
+
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BuscarPorId("EXCLUIR");
+			}
+		});
+		btnExcluir.setBounds(578, 440, 130, 40);
+		btnExcluir.setFont(new Font("Arial Black", Font.BOLD, 14));
+		painel_principal.add(btnExcluir);
+
+		// Chamando a tabela
+		CriarTabela();
+		
 		setVisible(true);
+
 	}
 
-	// Mï¿½todo para criar uma tabela
+
+	
 	public void CriarTabela() 
 	{
 		scrollTabela = new JScrollPane();
-		scrollTabela.setBounds(10, 21, 494, 305);
+		scrollTabela.setBounds(10, 21, 494, 220);
 		painel_tabela.add(scrollTabela);
 
 		tabela = new JTable();
@@ -129,11 +153,11 @@ public class FrmProduto extends JFrame {
 			}
 		};
 
-		String[] nomeColunas = {"Id", "Nome", "Descrição", "Localização"};
+		String[] nomeColunas = {"ID", "Nome", "HabilitaÃ§Ã£o", "Validade", "CPF"};
 
 		modeloTabela.setColumnIdentifiers(nomeColunas);
 
-		GerarProduto();
+		gerarMotoristas();
 
 		tabela.setModel(modeloTabela);
 		scrollTabela.setViewportView(tabela);
@@ -146,12 +170,11 @@ public class FrmProduto extends JFrame {
 		.setHorizontalAlignment(SwingConstants.CENTER);
 
 		tabela.getColumnModel().getColumn(0).setResizable(false);
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(1);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(15);
 		tabela.getColumnModel().getColumn(1).setResizable(false);
 		tabela.getColumnModel().getColumn(2).setResizable(false);
 		tabela.getColumnModel().getColumn(3).setResizable(false);
-		tabela.getColumnModel().getColumn(3).setPreferredWidth(20);
-
+		tabela.getColumnModel().getColumn(4).setResizable(false);
 
 		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
 		scrollTabela.setViewportView(tabela);
@@ -162,73 +185,68 @@ public class FrmProduto extends JFrame {
 	// Apaga toda a tabela e gera os clientes novamente
 	public void atualizarTabela(){
 		modeloTabela.setRowCount(0);
-		GerarProduto();
+		gerarMotoristas();
 	}
 
 
-	public void GerarProduto() 
+	public void gerarMotoristas() 
 	{
-		ProdutoDAO produtoDAO = new ProdutoDAO();
-		ArrayList<Produto> produtos = new ArrayList<Produto>();
+		
+		MotoristaDAO motoristaDAO = new MotoristaDAO();
+		ArrayList<Motorista> motoristas = new ArrayList<Motorista>();
 
-		produtos = produtoDAO.selectAll();
+		motoristas = motoristaDAO.selectAll();
 
-		Object[] linha = new Object[4];
-
-		for (Produto produto : produtos) 
+		Object[] linha = new Object[5];
+		
+		for (Motorista motorista : motoristas) 
 		{
-			linha[0] = produto.getIdProduto();
-			linha[1] = produto.getNome();
-			linha[2] = produto.getDescricao();
-			linha[3] = produto.getLocalizacao();
-
+			
+			linha[0] = motorista.getIdMotorista();
+			linha[1] = motorista.getNome();
+			linha[2] = motorista.getHabilitacao();
+			linha[3] = motorista.getValidade();
+			linha[4] = motorista.getCpf();
 			modeloTabela.addRow(linha);
 		}
 	}
 	
-	public void receberDados() {
-		//FrmCliente frmCliente = new FrmCliente(op, op + "Cliente");
-		
-		//********Receber dados pela linha selecionada
-		FrmProdutoUnico frmProdutoUnico = new FrmProdutoUnico("Produto");
+	public void BuscarPorId(String modo) 
+	{
+		FrmMotoristaUnico fUnico = new FrmMotoristaUnico(modo);
 		try {
-			int linha = tabela.getSelectedRow();
-		
-			int id = (int) tabela.getValueAt(linha, 0); 
 			
-			dao = new ProdutoDAO();
+			int linha;
+			linha = tabela.getSelectedRow();
 			
-			Produto produto = new Produto();
+			int id;
+			id = (int) tabela.getValueAt(linha, 0);
 			
-			produto = dao.selectById(id);
+			MotoristaDAO dao = new MotoristaDAO();
+			Motorista motorista = new Motorista();
 			
+			motorista = dao.selectById(id);
 			
-			frmProdutoUnico.setTxtID(produto.getIdProduto());
-			frmProdutoUnico.setTxtNome(produto.getNome());
-			frmProdutoUnico.setTxtTipo(produto.getTipoProduto());
-			frmProdutoUnico.setTxtValorUnitario(produto.getValorUnitario());
-			frmProdutoUnico.setTxtQtdeFardo(produto.getQtdeFardo());
-			frmProdutoUnico.setTxtQtdeEstoque(produto.getQtdeEstoque());
-			frmProdutoUnico.setTxtPeso(produto.getPeso());
-			frmProdutoUnico.setTxtVolume(produto.getVolume());
-			frmProdutoUnico.setTxtLocalizacao(produto.getLocalizacao());
-			frmProdutoUnico.setTxtIpi(produto.getIpi());
-			frmProdutoUnico.setTxtDemandaMensal(produto.getDemandaMensal());
-			frmProdutoUnico.setTxtTempoRessupri(produto.getTempoRessuprimento());
-			frmProdutoUnico.setTxtPontoRessupri(produto.getPontoRessuprimento());
-			frmProdutoUnico.setTxtLoteCompra(produto.getLoteCompras());
-			frmProdutoUnico.setTxtEstoqueMax(produto.getEstoqueMaximo());
-			frmProdutoUnico.setTxtDesc(produto.getDescricao());
+			//System.out.println(motorista.getCpf());
+			fUnico.setTxtID(motorista.getIdMotorista());
+			fUnico.setTxtNome(motorista.getNome());
+			fUnico.setTxtCategoria(motorista.getCategoria());
+			fUnico.setTxtCPF(motorista.getCpf());
+			fUnico.setTxtHabilitacao(motorista.getHabilitacao());
+			fUnico.setTxtValidade(motorista.getValidade());
+			fUnico.setCbStatus(motorista.getStatus());
+			fUnico.setId(motorista.getIdMotorista());
 			
-			frmProdutoUnico.setVisible(true);
-			
-			} catch(Exception erro) {
-			System.out.println(erro.getMessage());
-			erro.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Por favor, "
-					+ "selecione um contato", "Error Message", JOptionPane.ERROR_MESSAGE);
-			
-			
+			System.out.println(motorista.getIdMotorista());
+			fUnico.setVisible(true);
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Selecione um motorista!", "Cuidado!", JOptionPane.INFORMATION_MESSAGE);
+			e.printStackTrace();
 		}
+		
 	}
+	
+	
+
 }

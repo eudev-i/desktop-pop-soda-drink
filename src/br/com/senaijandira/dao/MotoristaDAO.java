@@ -37,11 +37,16 @@ public class MotoristaDAO {
 					motorista.setIdVeiculo(rs.getInt("id_veiculo"));
 					motorista.setNome(rs.getString("nome"));
 					motorista.setCpf(rs.getString("cpf"));
+					
 					motorista.setHabilitacao(rs.getString("habilitacao"));
 					motorista.setCategoria(rs.getString("categoria"));
 					motorista.setValidade(rs.getDate("validade"));
 					motorista.setStatus(rs.getInt("status"));
+					
+					motoristas.add(motorista);
 				}
+				
+			
 				
 				
 			} catch (Exception erro) {
@@ -58,7 +63,7 @@ public class MotoristaDAO {
 		
 		public Motorista selectById(int idMotorista) {
 			String sql = "SELECT * FROM tbl_motorista WHERE id_motorista=?";
-			
+			Motorista motorista = new Motorista();
 			
 			try {
 				stmt = Conexao.getConnection().prepareStatement(sql);
@@ -68,9 +73,8 @@ public class MotoristaDAO {
 				rs.next();
 				//enquanto os dados forem retornados
 			
-				Motorista motorista = new Motorista();
-				
 				motorista.setIdMotorista(rs.getInt("id_motorista"));
+				
 				motorista.setIdVeiculo(rs.getInt("id_veiculo"));
 				motorista.setNome(rs.getString("nome"));
 				motorista.setCpf(rs.getString("cpf"));
@@ -78,6 +82,7 @@ public class MotoristaDAO {
 				motorista.setCategoria(rs.getString("categoria"));
 				motorista.setValidade(rs.getDate("validade"));
 				motorista.setStatus(rs.getInt("status"));
+				
 			} catch (Exception erro) {
 				System.out.println(erro.getMessage());
 
@@ -92,13 +97,14 @@ public class MotoristaDAO {
 		public void insert(Motorista motorista) {
 			// Instrução para inserir o registro
 			String sql = "INSERT INTO `db_popsoda`.`tbl_motorista`" + 
-					"(`id_veiculo`," + 
+					"(" + 
 					"`nome`," + 
 					"`cpf`," + 
 					"`habilitacao`," + 
 					"`categoria`," + 
 					"`validade`," + 
-					"`status`)" + 
+					"`status`,"
+					+ "`id_veiculo`)" + 
 					" "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -108,13 +114,14 @@ public class MotoristaDAO {
 				// Prepara a instrução antes que seja executada
 				stmt = Conexao.getConnection().prepareStatement(sql);
 				
-				stmt.setInt(1, motorista.getIdMotorista());
-				stmt.setString(2, motorista.getNome());
-				stmt.setString(3, motorista.getCpf());
-				stmt.setString(4, motorista.getHabilitacao());
-				stmt.setString(5, motorista.getCategoria());
-				stmt.setString(6, motorista.getValidade().toString());
-				stmt.setInt(7, motorista.getStatus());
+				
+				stmt.setString(1, motorista.getNome());
+				stmt.setString(2, motorista.getCpf());
+				stmt.setString(3, motorista.getHabilitacao());
+				stmt.setString(4, motorista.getCategoria());
+				stmt.setString(5, motorista.getValidade().toString());
+				stmt.setInt(6, motorista.getStatus());
+				stmt.setInt(7, 1); //TODOS ESTÃO INDO NO MSM VEICULO
 
 				// Executa a query
 				stmt.execute();
@@ -134,14 +141,13 @@ public class MotoristaDAO {
 			// Instrução para inserir o registro
 			String sql = "UPDATE `db_popsoda`.`tbl_motorista`" + 
 					"SET" + 
-					"`id_veiculo` = ?," + 
 					"`nome` = ?," + 
 					"`cpf` = ?," + 
 					"`habilitacao` = ?," + 
 					"`categoria` = ?," + 
 					"`validade` = ?," + 
 					"`status` = ?" + 
-					"WHERE `id_motorista` = ?";
+					" WHERE `id_motorista` = ?";
 
 			try 
 			{
@@ -158,7 +164,7 @@ public class MotoristaDAO {
 				stmt.setString(4, motorista.getCategoria());
 				stmt.setString(5, motorista.getValidade().toString());
 				stmt.setInt(6, motorista.getStatus());
-				stmt.setInt(7, motorista.getIdMotorista());
+				stmt.setInt(7, idMotorista);
 				
 				
 				// Executa a query

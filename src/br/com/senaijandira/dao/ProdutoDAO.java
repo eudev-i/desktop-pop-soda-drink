@@ -101,10 +101,7 @@ public class ProdutoDAO {
 				produto.setIdProduto(rs.getInt("id_produto"));
 				
 				produto.setNome(rs.getString("nome"));
-				System.out.println(produto.getNome());
-				produto.setUnidadeMedida(rs.getDouble("unidade_medida"));
-				produto.setDescricao(rs.getString("descricao"));
-				produto.setImagem(rs.getString("imagem"));
+				
 				
 				produto.setValorUnitario(rs.getDouble("valor_unitario"));
 				produto.setNome(rs.getString("nome"));
@@ -120,6 +117,7 @@ public class ProdutoDAO {
 				produto.setStatus(rs.getInt("status"));
 				
 				produto.setLocalizacao(rs.getString("localizacao"));
+				
 				produto.setIpi(rs.getDouble("ipi"));
 				produto.setDemandaMensal(rs.getDouble("demanda_mensal"));
 				produto.setTempoRessuprimento(rs.getInt("tempo_ressuprimento"));
