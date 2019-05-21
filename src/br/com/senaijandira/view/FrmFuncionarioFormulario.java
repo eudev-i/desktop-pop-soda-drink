@@ -81,6 +81,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 499);
 		painelConteudo = new JPanel();
+		painelConteudo.setBackground(new Color(21, 35, 58));
 		painelConteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		painelConteudo.setLayout(new BorderLayout(0, 0));
 		setContentPane(painelConteudo);
@@ -98,11 +99,11 @@ public class FrmFuncionarioFormulario extends JFrame {
 		painel_principal.add(lbl_titulo);
 		
 		if (modo.equals("NOVO")) {
-			lbl_titulo.setText("NOVO FUNCIONÁRIO");
+			lbl_titulo.setText("NOVO FUNCIONï¿½RIO");
 		}else if (modo.equals("EDITAR")) {
-			lbl_titulo.setText("EDITAR FUNCIONÁRIO");
+			lbl_titulo.setText("EDITAR FUNCIONï¿½RIO");
 		}else if (modo.equals("EXCLUIR")) {
-			lbl_titulo.setText("EXCLUIR FUNCIONÁRIO");
+			lbl_titulo.setText("EXCLUIR FUNCIONï¿½RIO");
 		}
 		
 		txt_nome = new JTextField();
@@ -203,7 +204,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 					new FuncionarioDAO().Update(funcionario, id);
 				}else if (modo.equals("EXCLUIR")) {
 					int resposta = JOptionPane.showConfirmDialog(null,
-							"Tem certeza que deseja excluir " + funcionario.getNome() + "?", "Atenção",
+							"Tem certeza que deseja excluir " + funcionario.getNome() + "?", "Atenï¿½ï¿½o",
 							JOptionPane.YES_NO_OPTION);
 					
 					if (resposta == 0) {
