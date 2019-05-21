@@ -13,12 +13,10 @@ public class Conexao {
 			
 			// Tentando chamar o Driver do mariaDB
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String dbURL = "jdbc:mysql://localhost:3306/db_popsoda?useTimezone=true&serverTimezone=UTC";
-			
+			String dbURL = "jdbc:mysql://localhost:3306/db_popsoda?useTimezone=true&serverTimezone=UTC";		
 
-			con = DriverManager.getConnection(dbURL, "root", "bcd127");
-						
-			
+			con = DriverManager.getConnection(dbURL, "root", "caio100269");
+							
 		} catch (SQLException err) {
 			err.printStackTrace();
 		} catch (Exception e) {

@@ -21,7 +21,7 @@ public class PedidoDAO {
 	public void Update(Pedido pedido, int id) 
 	{
 		// Instrução para atualizar o registro
-		String sql = "UPDATE tbl_compra_produto SET status_pedido ? WHERE id_c_produto = ?";
+		String sql = "UPDATE tbl_compra_produto SET status_pedido = ? WHERE id_c_produto = ?";
 
 		try 
 		{

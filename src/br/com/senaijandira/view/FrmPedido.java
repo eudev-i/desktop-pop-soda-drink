@@ -97,7 +97,7 @@ public class FrmPedido extends JFrame {
 		JButton btnEditar = new JButton("EDITAR");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//BuscarPorId("EDITAR");
+				BuscarPorId();
 			}
 		});
 		btnEditar.setBounds(404, 440, 150, 40);
@@ -187,7 +187,7 @@ public class FrmPedido extends JFrame {
 		}
 	}
 
-	public void BuscarPorId(String modo) 
+	public void BuscarPorId() 
 	{
 
 		try {
@@ -197,6 +197,14 @@ public class FrmPedido extends JFrame {
 
 			int id;
 			id = (int) tabela.getValueAt(linha, 0);
+			
+			Pedido pedido = new PedidoDAO().SelectById(id);
+			
+			FrmPedidoFormulario pedidoFormulario = new FrmPedidoFormulario();
+			
+			pedidoFormulario.setId(pedido.getId());
+			
+			pedidoFormulario.CriarFormulario(FrmPedido.this);
 			
 
 		} catch (Exception e) {
