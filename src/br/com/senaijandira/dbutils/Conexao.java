@@ -15,7 +15,7 @@ public class Conexao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String dbURL = "jdbc:mysql://localhost:3306/db_popsoda?useTimezone=true&serverTimezone=UTC";		
 
-			con = DriverManager.getConnection(dbURL, "root", "caio100269");
+			con = DriverManager.getConnection(dbURL, "root", "bcd127");
 							
 		} catch (SQLException err) {
 			err.printStackTrace();

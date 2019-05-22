@@ -200,7 +200,7 @@ public class FrmPedido extends JFrame {
 			
 			Pedido pedido = new PedidoDAO().SelectById(id);
 			
-			FrmPedidoFormulario pedidoFormulario = new FrmPedidoFormulario();
+			FrmPedidoFormulario pedidoFormulario = new FrmPedidoFormulario(pedido.getStatusPedido());
 			
 			pedidoFormulario.setId(pedido.getId());
 			

@@ -29,7 +29,7 @@ public class FrmPedidoFormulario extends JFrame {
 		this.id = id;
 	}
 
-	public FrmPedidoFormulario() {
+	public FrmPedidoFormulario(String status) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 340, 290);
 		painelConteudo = new JPanel();
@@ -60,7 +60,7 @@ public class FrmPedidoFormulario extends JFrame {
 		comboStatus.setBounds(77, 116, 150, 20);
 		painel_principal.add(comboStatus);
 		
-		ComboStatus();
+		ComboStatus(status);
 
 		JButton btnNewButton = new JButton("SALVAR");
 		btnNewButton.setFont(new Font("Arial Black", Font.BOLD, 14));
@@ -86,12 +86,17 @@ public class FrmPedidoFormulario extends JFrame {
 		painel_principal.add(btnNewButton);
 	}
 	
-	public void ComboStatus() {
+	public void ComboStatus(String statusPedido) {
 		
-		String[] todosStatus = {"Caio", "Costa"};
+		String[] todosStatus = {"Separação do estoque", "Nota Fiscal Emitida", "Pedido em transporte", "Pedido entregue"};
 		
 		for (String status : todosStatus) {
 			comboStatus.addItem(status);
+			
+			if (status.equals(statusPedido)) {
+				comboStatus.setSelectedItem(statusPedido);
+			}
+			
 		}
 		
 	}
