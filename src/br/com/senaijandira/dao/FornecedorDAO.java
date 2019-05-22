@@ -41,6 +41,9 @@ public class FornecedorDAO {
 					fornecedor.setTelefone(rs.getString("telefone"));
 					fornecedor.setEmail(rs.getString("email"));
 					fornecedor.setStatus(rs.getInt("status"));
+					
+					fornecedores.add(fornecedor);
+					System.out.println(fornecedor.getEmail());
 				}
 				
 				
@@ -56,13 +59,13 @@ public class FornecedorDAO {
 			return fornecedores;
 		}
 		
-		public Fornecedor selectById(int idFornecedor) {
-			String sql = "SELECT * FROM tbl_fornecedor WHERE id_fornecedor=?";
+		public Fornecedor selectById(String cnpj) {
+			String sql = "SELECT * FROM tbl_fornecedor WHERE cnpj=?";
 			Fornecedor fornecedor = new Fornecedor();
 			
 			try {
 				stmt = Conexao.getConnection().prepareStatement(sql);
-				stmt.setInt(1, idFornecedor);
+				stmt.setString(1, cnpj);
 				rs = stmt.executeQuery();
 				
 				rs.next();
@@ -77,6 +80,7 @@ public class FornecedorDAO {
 					fornecedor.setTelefone(rs.getString("telefone"));
 					fornecedor.setEmail(rs.getString("email"));
 					fornecedor.setStatus(rs.getInt("status"));
+					
 			} catch (Exception erro) {
 				System.out.println(erro.getMessage());
 
@@ -127,7 +131,7 @@ public class FornecedorDAO {
 			}
 		}
 		
-		public void update(Fornecedor fornecedor, int idFornecedor) {
+		public void update(Fornecedor fornecedor, String idFornecedor) {
 			// Instrução para inserir o registro
 			String sql = "UPDATE `db_popsoda`.`tbl_fornecedor`" + 
 					"SET" + 
@@ -137,7 +141,7 @@ public class FornecedorDAO {
 					"`telefone` = ?" + 
 					"`email` = ?" + 
 					"`status` = ?" + 
-					"WHERE `id_fornecedor` = ?";
+					"WHERE `cnpj` = ?";
 
 			try 
 			{
@@ -154,7 +158,7 @@ public class FornecedorDAO {
 				stmt.setString(5, fornecedor.getEmail());
 				stmt.setInt(6, fornecedor.getStatus());
 				
-				stmt.setInt(7, fornecedor.getIdFornecedor());
+				stmt.setString(7, fornecedor.getCnpj());
 				// Executa a query
 				stmt.execute();
 
@@ -169,10 +173,10 @@ public class FornecedorDAO {
 			}
 		}
 		
-		public void delete(int idFornecedor) 
+		public void delete(String idFornecedor) 
 		{
 			// Instrução para deletar o registro
-			String sql = "DELETE FROM tbl_fornecedor WHERE id_fornecedor = ?";
+			String sql = "DELETE FROM tbl_fornecedor WHERE cnpj = ?";
 
 			try 
 			{
@@ -180,7 +184,7 @@ public class FornecedorDAO {
 				stmt = Conexao.getConnection().prepareStatement(sql);
 
 				// Passa os parâmetros da instrunção
-				stmt.setInt(1, idFornecedor);
+				stmt.setString(1, idFornecedor);
 
 				// Executa a query
 				stmt.execute();

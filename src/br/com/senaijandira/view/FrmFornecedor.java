@@ -17,14 +17,15 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import br.com.senaijandira.dao.MotoristaDAO;
-import br.com.senaijandira.model.Motorista;
+import br.com.senaijandira.dao.FornecedorDAO;
+import br.com.senaijandira.model.Fornecedor;
+
 
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FrmMotorista extends JFrame {
+public class FrmFornecedor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painel_conteudo;
@@ -33,7 +34,7 @@ public class FrmMotorista extends JFrame {
 	private JScrollPane scrollTabela;
 	private DefaultTableModel modeloTabela;
 
-	public FrmMotorista() {
+	public FrmFornecedor() {
 		setBounds(100, 100, 750, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -83,7 +84,7 @@ public class FrmMotorista extends JFrame {
 		btnExpedicao.setBounds(10, 403, 180, 50);
 		painel_menu.add(btnExpedicao);
 
-		JLabel lbl_titulo = new JLabel("Gerenciamento de Motoristas");
+		JLabel lbl_titulo = new JLabel("Gerenciamento de Fornecedores");
 		lbl_titulo.setBounds(231, 11, 461, 82);
 		lbl_titulo.setFont(new Font("Arial Black", Font.BOLD, 20));
 		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,14 +92,14 @@ public class FrmMotorista extends JFrame {
 
 		painel_tabela = new JPanel();
 		painel_tabela.setBounds(210, 132, 514, 248);
-		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Motoristas", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Fornecedores", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		painel_principal.add(painel_tabela);
 		painel_tabela.setLayout(null);
 
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmMotoristaUnico("NOVO").criarFormulario(FrmMotorista.this);
+				new FrmFornecedorUnico("NOVO").criarFormulario(FrmFornecedor.this);
 			}
 		});
 		btnNovo.setBounds(237, 440, 130, 40);
@@ -153,11 +154,11 @@ public class FrmMotorista extends JFrame {
 			}
 		};
 
-		String[] nomeColunas = {"ID", "Nome", "Habilitação", "Validade", "CPF"};
+		String[] nomeColunas = {"CNPJ", "Raz�o Social", "E-mail", "Telefone"};
 
 		modeloTabela.setColumnIdentifiers(nomeColunas);
 
-		gerarMotoristas();
+		gerarFornecedor();
 
 		tabela.setModel(modeloTabela);
 		scrollTabela.setViewportView(tabela);
@@ -174,7 +175,7 @@ public class FrmMotorista extends JFrame {
 		tabela.getColumnModel().getColumn(1).setResizable(false);
 		tabela.getColumnModel().getColumn(2).setResizable(false);
 		tabela.getColumnModel().getColumn(3).setResizable(false);
-		tabela.getColumnModel().getColumn(4).setResizable(false);
+		
 
 		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
 		scrollTabela.setViewportView(tabela);
@@ -185,28 +186,28 @@ public class FrmMotorista extends JFrame {
 	// Apaga toda a tabela e gera os clientes novamente
 	public void atualizarTabela(){
 		modeloTabela.setRowCount(0);
-		gerarMotoristas();
+		gerarFornecedor();
 	}
 
 
-	public void gerarMotoristas() 
+	public void gerarFornecedor() 
 	{
 		
-		MotoristaDAO motoristaDAO = new MotoristaDAO();
-		ArrayList<Motorista> motoristas = new ArrayList<Motorista>();
+		FornecedorDAO dao = new FornecedorDAO();
+		ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 
-		motoristas = motoristaDAO.selectAll();
+		fornecedores = dao.selectAll();
 
-		Object[] linha = new Object[5];
+		Object[] linha = new Object[4];
 		
-		for (Motorista motorista : motoristas) 
+		for (Fornecedor fornecedor : fornecedores) 
 		{
 			
-			linha[0] = motorista.getIdMotorista();
-			linha[1] = motorista.getNome();
-			linha[2] = motorista.getHabilitacao();
-			linha[3] = motorista.getValidade();
-			linha[4] = motorista.getCpf();
+			linha[0] = fornecedor.getCnpj();
+			linha[1] = fornecedor.getRazaoSocial();
+			linha[2] = fornecedor.getEmail();
+			linha[3] = fornecedor.getTelefone();
+			
 			modeloTabela.addRow(linha);
 		}
 	}
@@ -219,29 +220,27 @@ public class FrmMotorista extends JFrame {
 			int linha;
 			linha = tabela.getSelectedRow();
 			
-			int id;
-			id = (int) tabela.getValueAt(linha, 0);
+			String id;
+			id = tabela.getValueAt(linha, 0).toString();
 			
-			MotoristaDAO dao = new MotoristaDAO();
-			Motorista motorista = new Motorista();
+			FornecedorDAO dao = new FornecedorDAO();
+			Fornecedor fornecedor = new Fornecedor();
 			
-			motorista = dao.selectById(id);
+			fornecedor = dao.selectById(id);
 			
-			//System.out.println(motorista.getCpf());
-			fUnico.setTxtID(motorista.getIdMotorista());
-			fUnico.setTxtNome(motorista.getNome());
-			fUnico.setTxtCategoria(motorista.getCategoria());
-			fUnico.setTxtCPF(motorista.getCpf());
-			fUnico.setTxtHabilitacao(motorista.getHabilitacao());
-			fUnico.setTxtValidade(motorista.getValidade());
-			fUnico.setCbStatus(motorista.getStatus());
-			fUnico.setId(motorista.getIdMotorista());
+		
+			fUnico.setTxtID(fornecedor.getIdFornecedor());
+			fUnico.setTxtNomeFantasia(fornecedor.getNomeFantasia());
+			fUnico.setTxtCNPJ(fornecedor.getCnpj());
+			fUnico.setTxtEmail(fornecedor.getEmail());
+			fUnico.setTxtRazaoSocial(fornecedor.getRazaoSocial());
+			fUnico.setTxtTelefone(fornecedor.getTelefone());
+			fUnico.setCbStatus(fornecedor.getStatus());
 			
-			System.out.println(motorista.getIdMotorista());
 			fUnico.setVisible(true);
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Selecione um motorista!", "Cuidado!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Selecione um fornecedor!", "Cuidado!", JOptionPane.INFORMATION_MESSAGE);
 			e.printStackTrace();
 		}
 		
