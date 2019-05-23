@@ -98,7 +98,7 @@ public class FrmVeiculo extends JFrame {
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmVeiculoFormulario("NOVO").criarFormulario(FrmVeiculo.this);
+				//new FrmVeiculoFormulario("NOVO").criarFormulario(FrmVeiculo.this);
 			}
 		});
 		btnNovo.setBounds(237, 440, 130, 40);
@@ -232,7 +232,7 @@ public class FrmVeiculo extends JFrame {
 			formulario.setPeso(String.valueOf(veiculo.getCapac_peso()));
 			formulario.setVolume(String.valueOf(veiculo.getCapc_volume()));
 			
-			formulario.criarFormulario(FrmVeiculo.this);
+			//formulario.criarFormulario(FrmVeiculo.this);
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um contato!", "Aten��o", JOptionPane.INFORMATION_MESSAGE);

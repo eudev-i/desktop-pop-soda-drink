@@ -25,7 +25,7 @@ public class FrmVeiculoFormulario {
 	private JTextPane txt_placa;
 	private JTextPane txt_peso;
 	private JTextPane txt_volume;
-	private FrmVeiculo frmVeiculo;
+	private PainelVeiculo painelVeiculo;
 	private int id;
 
 	public void setModelo(String modelo) {
@@ -155,7 +155,7 @@ public class FrmVeiculoFormulario {
 					veiculoDAO.Update(veiculo, id);
 				}else if (modo.equals("EXCLUIR")) {
 					int resposta = JOptionPane.showConfirmDialog(null,
-							"Tem certeza que deseja excluir " + veiculo.getModelo() + "?", "Atenção",
+							"Tem certeza que deseja excluir " + veiculo.getModelo() + "?", "Atenï¿½ï¿½o",
 							JOptionPane.YES_NO_OPTION);
 					
 					if (resposta == 0) {
@@ -164,7 +164,7 @@ public class FrmVeiculoFormulario {
 
 				}
 
-				frmVeiculo.atualizarTabela();
+				painelVeiculo.atualizarTabela();
 				frame.dispose();
 
 			}
@@ -175,9 +175,9 @@ public class FrmVeiculoFormulario {
 
 	}
 
-	public void criarFormulario(FrmVeiculo frmVeiculo) 
+	public void criarFormulario(PainelVeiculo painelVeiculo) 
 	{
-		this.frmVeiculo = frmVeiculo;
+		this.painelVeiculo = painelVeiculo;
 		frame.setVisible(true);
 	}
 }
