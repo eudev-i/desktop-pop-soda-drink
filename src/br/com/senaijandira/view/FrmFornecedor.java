@@ -214,7 +214,6 @@ public class FrmFornecedor extends JFrame {
 	
 	public void BuscarPorId(String modo) 
 	{
-		FrmFornecedorUnico fUnico = new FrmFornecedorUnico(modo);
 		try {
 			
 			int linha;
@@ -225,6 +224,8 @@ public class FrmFornecedor extends JFrame {
 			
 			FornecedorDAO dao = new FornecedorDAO();
 			Fornecedor fornecedor = new Fornecedor();
+			
+			FrmFornecedorUnico fUnico = new FrmFornecedorUnico(modo);
 			
 			fornecedor = dao.selectById(id);
 			
@@ -237,7 +238,7 @@ public class FrmFornecedor extends JFrame {
 			fUnico.setTxtTelefone(fornecedor.getTelefone());
 			fUnico.setCbStatus(fornecedor.getStatus());
 			
-			fUnico.setVisible(true);
+			fUnico.criarFormulario(this);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um fornecedor!", "Cuidado!", JOptionPane.INFORMATION_MESSAGE);

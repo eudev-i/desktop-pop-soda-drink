@@ -16,7 +16,7 @@ public class Conexao {
 			
 			
 
-			con = DriverManager.getConnection(dbURL, "root", "bcd127");
+			con = DriverManager.getConnection(dbURL, "root", "r4nd3rs0n");
 			
 			
 			System.out.println("Deu certo");

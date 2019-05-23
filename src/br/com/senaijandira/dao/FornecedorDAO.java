@@ -127,6 +127,9 @@ public class FornecedorDAO {
 				JOptionPane.showMessageDialog(null, "Fornecedor gravado com sucesso!");
 			} catch (SQLException e) 
 			{
+				JOptionPane.showMessageDialog(null,
+						"Não foi " + "possível inserir um novo registro. Por Favor," + " tente novamente mais tarde. ", "Error",
+						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 		}
@@ -136,12 +139,12 @@ public class FornecedorDAO {
 			String sql = "UPDATE `db_popsoda`.`tbl_fornecedor`" + 
 					"SET" + 
 					"`cnpj` = ?" + 
-					"`razao_social` = ?" + 
-					"`nome_fantasia` = ?" + 
-					"`telefone` = ?" + 
-					"`email` = ?" + 
-					"`status` = ?" + 
-					"WHERE `cnpj` = ?";
+					",`razao_social` = ?" + 
+					",`nome_fantasia` = ?" + 
+					",`telefone` = ?" + 
+					",`email` = ?" + 
+					",`status` = ?" + 
+					" WHERE cnpj = ?";
 
 			try 
 			{
@@ -169,6 +172,9 @@ public class FornecedorDAO {
 				JOptionPane.showMessageDialog(null, "Fornecedor atualizado com sucesso!");
 			} catch (SQLException e) 
 			{
+				JOptionPane.showMessageDialog(null,
+						"Não foi " + "possível atualizar o registro. Por Favor," + " tente novamente mais tarde. ", "Error",
+						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 		}
@@ -196,6 +202,9 @@ public class FornecedorDAO {
 				JOptionPane.showMessageDialog(null, "Fornecedor excluído com sucesso!");
 			} catch (SQLException e) 
 			{
+				JOptionPane.showMessageDialog(null,
+						"Não foi " + "possível excluir o registro. Por Favor," + " tente novamente mais tarde. ", "Error",
+						JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 		}

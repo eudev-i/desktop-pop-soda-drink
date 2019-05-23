@@ -33,7 +33,7 @@ public class FrmFornecedorUnico extends JFrame {
 	private JTextField txtRazaoSocial;
 	private JTextField txtEmail;
 	private JTextField txtID;
-	private FrmFornecedor frmMotorista;
+	private FrmFornecedor frmFornecedor;
 	ProdutoDAO dao = new ProdutoDAO();
 	private JTextField txtCNPJ;
 	private JTextField txtNomeFantasia;
@@ -86,6 +86,7 @@ public class FrmFornecedorUnico extends JFrame {
 	 * Create the frame.
 	 */
 	public FrmFornecedorUnico(String title) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle(title);
 		setBounds(100, 100, 574, 297);
 		panelPrincipal = new JPanel();
@@ -112,9 +113,7 @@ public class FrmFornecedorUnico extends JFrame {
 		txtEmail.setBounds(72, 113, 192, 20);
 		panelDados.add(txtEmail);
 
-		// Vetor para níveis de atividade
-		String[] nivelAtividade = { "Sedentário", "Levemente Ativo", "Moderadamente Ativo", "Bastante Ativo",
-				"Muito Ativo" };
+		
 
 		JLabel lblRazaoSocial = new JLabel("Raz\u00E3o Social: ");
 		lblRazaoSocial.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -200,12 +199,13 @@ public class FrmFornecedorUnico extends JFrame {
 					}
 				}
 				
-				FrmFornecedor frmMotorista = new FrmFornecedor();
-				frmMotorista.atualizarTabela();
+			
+				frmFornecedor.atualizarTabela();
 				
 				dispose();
 				
 			}
+			
 		});
 		//----------------------------------------------------
 		
@@ -226,17 +226,16 @@ public class FrmFornecedorUnico extends JFrame {
 		lblTitulo.setBounds(10, 0, 187, 67);
 		panelTitulo.add(lblTitulo);
 		
-		//Criando um cliente
-		final Produto produto = new Produto();
+		
 
 		
 
 		
 	}
 	
-	public void criarFormulario(FrmFornecedor frmMotorista) 
+	public void criarFormulario(FrmFornecedor frmFornecedor) 
 	{
-		this.frmMotorista = frmMotorista;
+		this.frmFornecedor = frmFornecedor;
 		setVisible(true);
 	}
 }

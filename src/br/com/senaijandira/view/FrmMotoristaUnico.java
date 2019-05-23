@@ -3,7 +3,6 @@ package br.com.senaijandira.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
 import br.com.senaijandira.dao.MotoristaDAO;
 import br.com.senaijandira.dao.ProdutoDAO;
@@ -31,7 +30,7 @@ public class FrmMotoristaUnico extends JFrame {
 	private JTextField txtNome;
 	private JTextField txtValidade;
 	private JTextField txtID;
-	private FrmFornecedor frmMotorista;
+	private FrmMotorista frmMotorista = null;
 	ProdutoDAO dao = new ProdutoDAO();
 	private JTextField txtCPF;
 	private JTextField txtHabilitacao;
@@ -198,7 +197,7 @@ public class FrmMotoristaUnico extends JFrame {
 					}
 				}
 				
-				FrmFornecedor frmMotorista = new FrmFornecedor();
+				
 				frmMotorista.atualizarTabela();
 				
 				dispose();
@@ -232,7 +231,7 @@ public class FrmMotoristaUnico extends JFrame {
 		
 	}
 	
-	public void criarFormulario(FrmFornecedor frmMotorista) 
+	public void criarFormulario(FrmMotorista frmMotorista) 
 	{
 		this.frmMotorista = frmMotorista;
 		setVisible(true);

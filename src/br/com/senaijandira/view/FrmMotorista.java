@@ -213,7 +213,7 @@ public class FrmMotorista extends JFrame {
 	
 	public void BuscarPorId(String modo) 
 	{
-		FrmFornecedorUnico fUnico = new FrmFornecedorUnico(modo);
+		FrmMotoristaUnico fUnico = new FrmMotoristaUnico(modo);
 		try {
 			
 			int linha;
@@ -238,7 +238,7 @@ public class FrmMotorista extends JFrame {
 			fUnico.setId(motorista.getIdMotorista());
 			
 			System.out.println(motorista.getIdMotorista());
-			fUnico.setVisible(true);
+			fUnico.criarFormulario(this);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um motorista!", "Cuidado!", JOptionPane.INFORMATION_MESSAGE);
