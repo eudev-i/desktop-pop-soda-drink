@@ -22,7 +22,7 @@ public class Produto {
 	private int pontoRessuprimento;
 	private int loteCompras;
 	private int estoqueMaximo;
-	private int tipoProduto;
+	private String tipoProduto;
 	private int statusHome;
 	
 
@@ -147,10 +147,10 @@ public class Produto {
 	public void setEstoqueMaximo(int estoqueMaximo) {
 		this.estoqueMaximo = estoqueMaximo;
 	}
-	public int getTipoProduto() {
+	public String getTipoProduto() {
 		return tipoProduto;
 	}
-	public void setTipoProduto(int tipoProduto) {
+	public void setTipoProduto(String tipoProduto) {
 		this.tipoProduto = tipoProduto;
 	}
 	public int getStatusHome() {
