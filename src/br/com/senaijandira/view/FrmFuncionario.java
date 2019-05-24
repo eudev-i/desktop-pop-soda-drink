@@ -89,14 +89,14 @@ public class FrmFuncionario extends JFrame {
 
 		painel_tabela = new JPanel();
 		painel_tabela.setBounds(210, 132, 514, 248);
-		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Funcionários", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		painel_tabela.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Funcionï¿½rios", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		painel_principal.add(painel_tabela);
 		painel_tabela.setLayout(null);
 
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmFuncionarioFormulario("NOVO", 0, 0).criarFormulario(FrmFuncionario.this);
+				//new FrmFuncionarioFormulario("NOVO", 0, 0).criarFormulario(FrmFuncionario.this);
 			}
 		});
 		btnNovo.setBounds(237, 440, 130, 40);
@@ -149,7 +149,7 @@ public class FrmFuncionario extends JFrame {
 			}
 		};
 
-		String[] nomeColunas = {"Matrícula", "Nome", "E-mail", "Dt Admissão"};
+		String[] nomeColunas = {"Matrï¿½cula", "Nome", "E-mail", "Dt Admissï¿½o"};
 
 		modeloTabela.setColumnIdentifiers(nomeColunas);
 
@@ -232,7 +232,7 @@ public class FrmFuncionario extends JFrame {
 			formulario.setTxt_dtAdmissao(funcionario.getDtAdmissao());
 			formulario.setId(funcionario.getMatricula());
 			
-			formulario.criarFormulario(this);
+			//formulario.criarFormulario(this);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Selecione um contato!", "Atenï¿½ï¿½o", JOptionPane.INFORMATION_MESSAGE);

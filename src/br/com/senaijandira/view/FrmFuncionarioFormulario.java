@@ -28,7 +28,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel painelConteudo;
-	private FrmFuncionario frmFuncionario;
+	private PainelFuncionario painelFuncionario;
 	private JTextField txt_nome;
 	private JTextField txt_email;
 	private JTextField txt_telefone;
@@ -107,55 +107,65 @@ public class FrmFuncionarioFormulario extends JFrame {
 		}
 		
 		txt_nome = new JTextField();
-		txt_nome.setBounds(29, 117, 169, 20);
+		txt_nome.setFont(new Font("Arial", Font.PLAIN, 12));
+		txt_nome.setBounds(29, 117, 169, 28);
 		painel_principal.add(txt_nome);
 		txt_nome.setColumns(10);
 		
 		txt_email = new JTextField();
+		txt_email.setFont(new Font("Arial", Font.PLAIN, 12));
 		txt_email.setColumns(10);
-		txt_email.setBounds(226, 117, 169, 20);
+		txt_email.setBounds(226, 117, 169, 28);
 		painel_principal.add(txt_email);
 		
 		combo_cargo = new JComboBox<Cargo>();
-		combo_cargo.setBounds(29, 187, 169, 20);
+		combo_cargo.setFont(new Font("Arial", Font.PLAIN, 12));
+		combo_cargo.setBounds(29, 187, 169, 28);
 		painel_principal.add(combo_cargo);
 		
 		ComboCargo(idCargo);
 				
 		combo_perfil = new JComboBox<Perfil>();
-		combo_perfil.setBounds(226, 187, 169, 20);
+		combo_perfil.setFont(new Font("Arial", Font.PLAIN, 12));
+		combo_perfil.setBounds(226, 187, 169, 28);
 		painel_principal.add(combo_perfil);
 		
 		ComboPerfil(idPerfil);
 		
 		txt_telefone = new JTextField();
-		txt_telefone.setBounds(29, 257, 100, 20);
+		txt_telefone.setFont(new Font("Arial", Font.PLAIN, 12));
+		txt_telefone.setBounds(29, 257, 100, 28);
 		painel_principal.add(txt_telefone);
 		txt_telefone.setColumns(10);
 		
 		txt_celular = new JTextField();
+		txt_celular.setFont(new Font("Arial", Font.PLAIN, 12));
 		txt_celular.setColumns(10);
-		txt_celular.setBounds(162, 257, 100, 20);
+		txt_celular.setBounds(162, 257, 100, 28);
 		painel_principal.add(txt_celular);
 		
 		txt_dtNasc = new JTextField();
+		txt_dtNasc.setFont(new Font("Arial", Font.PLAIN, 12));
 		txt_dtNasc.setColumns(10);
-		txt_dtNasc.setBounds(295, 257, 100, 20);
+		txt_dtNasc.setBounds(295, 257, 100, 28);
 		painel_principal.add(txt_dtNasc);
 		
 		txt_usuario = new JTextField();
+		txt_usuario.setFont(new Font("Arial", Font.PLAIN, 12));
 		txt_usuario.setColumns(10);
-		txt_usuario.setBounds(29, 327, 100, 20);
+		txt_usuario.setBounds(29, 327, 100, 28);
 		painel_principal.add(txt_usuario);
 		
 		txt_senha = new JPasswordField();
+		txt_senha.setFont(new Font("Arial", Font.PLAIN, 12));
 		txt_senha.setColumns(10);
-		txt_senha.setBounds(162, 327, 100, 20);
+		txt_senha.setBounds(162, 327, 100, 28);
 		painel_principal.add(txt_senha);
 		
 		txt_dtAdmissao = new JTextField();
+		txt_dtAdmissao.setFont(new Font("Arial", Font.PLAIN, 12));
 		txt_dtAdmissao.setColumns(10);
-		txt_dtAdmissao.setBounds(295, 327, 100, 20);
+		txt_dtAdmissao.setBounds(295, 327, 100, 28);
 		painel_principal.add(txt_dtAdmissao);
 		
 		JButton btnOperacao = new JButton();
@@ -212,7 +222,7 @@ public class FrmFuncionarioFormulario extends JFrame {
 					}
 				}
 				
-				frmFuncionario.atualizarTabela();
+				painelFuncionario.atualizarTabela();
 				
 				dispose();
 				
@@ -315,9 +325,9 @@ public class FrmFuncionarioFormulario extends JFrame {
 		}
 	}
 	
-	public void criarFormulario(FrmFuncionario frmFuncionario) 
+	public void criarFormulario(PainelFuncionario painelFuncionario) 
 	{
-		this.frmFuncionario = frmFuncionario;
+		this.painelFuncionario = painelFuncionario;
 		setVisible(true);
 	}
 	

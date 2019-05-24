@@ -20,8 +20,9 @@ public class FrmTelaInicial extends JFrame {
 	private JPanel painel_conteudo;
 
 	public FrmTelaInicial() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 881, 527);
+		setBounds(100, 100, 881, 509);
 		painel_principal = new JPanel();
 		painel_principal.setBackground(new Color(255, 153, 51));
 		painel_principal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,6 +55,10 @@ public class FrmTelaInicial extends JFrame {
 		JButton btn_funcionarios = new JButton("FUNCIONÁRIOS");
 		btn_funcionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				painel_conteudo.removeAll();
+				painel_conteudo.add(new PainelFuncionario(), BorderLayout.CENTER);
+				painel_conteudo.revalidate();
+				painel_conteudo.repaint();
 			}
 		});
 		btn_funcionarios.setFont(new Font("Arial Black", Font.BOLD, 12));
@@ -89,7 +94,7 @@ public class FrmTelaInicial extends JFrame {
 		
 		painel_conteudo = new JPanel();
 		painel_conteudo.setBackground(new Color(255, 153, 51));
-		painel_conteudo.setBounds(202, 86, 653, 405);
+		painel_conteudo.setBounds(170, 86, 695, 391);
 		painel_principal.add(painel_conteudo);
 		painel_conteudo.setLayout(null);
 		
@@ -97,27 +102,27 @@ public class FrmTelaInicial extends JFrame {
 		lbl_titulo_modulo.setForeground(Color.BLACK);
 		lbl_titulo_modulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_titulo_modulo.setFont(new Font("Gadugi", Font.BOLD, 30));
-		lbl_titulo_modulo.setBounds(10, 11, 633, 120);
+		lbl_titulo_modulo.setBounds(10, 11, 612, 120);
 		painel_conteudo.add(lbl_titulo_modulo);
 		
 		JLabel lblNewLabel = new JLabel("Usuário: admin");
 		lblNewLabel.setFont(new Font("Gadugi", Font.BOLD, 18));
-		lblNewLabel.setBounds(188, 180, 455, 20);
+		lblNewLabel.setBounds(165, 179, 455, 20);
 		painel_conteudo.add(lblNewLabel);
 		
 		JLabel lblEmail = new JLabel("E-mail: caio.costacarmo@gmail.com");
 		lblEmail.setFont(new Font("Gadugi", Font.BOLD, 18));
-		lblEmail.setBounds(188, 210, 455, 20);
+		lblEmail.setBounds(165, 209, 455, 20);
 		painel_conteudo.add(lblEmail);
 		
 		JLabel lblDataDeAdmisso = new JLabel("Data de Admissão: 11/03/2019");
 		lblDataDeAdmisso.setFont(new Font("Gadugi", Font.BOLD, 18));
-		lblDataDeAdmisso.setBounds(188, 240, 455, 20);
+		lblDataDeAdmisso.setBounds(165, 239, 455, 20);
 		painel_conteudo.add(lblDataDeAdmisso);
 		
 		JLabel lblPerfil = new JLabel("Perfil: Administrativo");
 		lblPerfil.setFont(new Font("Gadugi", Font.BOLD, 18));
-		lblPerfil.setBounds(188, 270, 455, 20);
+		lblPerfil.setBounds(165, 269, 455, 20);
 		painel_conteudo.add(lblPerfil);
 	}
 }

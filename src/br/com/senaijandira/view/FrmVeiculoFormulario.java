@@ -2,29 +2,28 @@ package br.com.senaijandira.view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
+import javax.swing.border.EmptyBorder;
 import br.com.senaijandira.dao.VeiculoDAO;
 import br.com.senaijandira.model.Veiculo;
-
-import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FrmVeiculoFormulario {
+public class FrmVeiculoFormulario extends JFrame {
 
-	private JFrame frame;
-	private JTextPane txt_modelo;
-	private JTextPane txt_placa;
-	private JTextPane txt_peso;
-	private JTextPane txt_volume;
+	private static final long serialVersionUID = 1L;
+	private JPanel painelConteudo;
+	private JTextField txt_modelo;
+	private JTextField txt_placa;
+	private JTextField txt_peso;
+	private JTextField txt_volume;
 	private PainelVeiculo painelVeiculo;
 	private int id;
 
@@ -53,15 +52,17 @@ public class FrmVeiculoFormulario {
 	}
 
 	public FrmVeiculoFormulario(String modo) {
-	
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 329);
+		painelConteudo = new JPanel();
+		painelConteudo.setBackground(new Color(21, 35, 58));
+		painelConteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
+		painelConteudo.setLayout(new BorderLayout(0, 0));
+		setContentPane(painelConteudo);
 
 		JPanel painel_principal = new JPanel();
 		painel_principal.setBackground(new Color(21, 35, 58));
-		frame.getContentPane().add(painel_principal, BorderLayout.CENTER);
+		painelConteudo.add(painel_principal, BorderLayout.CENTER);
 		painel_principal.setLayout(null);
 
 		JLabel lbl_titulo = new JLabel();
@@ -70,7 +71,7 @@ public class FrmVeiculoFormulario {
 		lbl_titulo.setBounds(10, 11, 414, 56);
 		lbl_titulo.setForeground(Color.WHITE);
 		painel_principal.add(lbl_titulo);
-		
+
 		if (modo.equals("NOVO")) {
 			lbl_titulo.setText("NOVO VEICULO");
 		}else if (modo.equals("EDITAR")) {
@@ -79,24 +80,24 @@ public class FrmVeiculoFormulario {
 			lbl_titulo.setText("EXCLUIR VEICULO");
 		}
 
-		txt_modelo = new JTextPane();
+		txt_modelo = new JTextField();
 		txt_modelo.setFont(new Font("Arial", Font.PLAIN, 12));
-		txt_modelo.setBounds(60, 87, 111, 20);
+		txt_modelo.setBounds(60, 87, 111, 28);
 		painel_principal.add(txt_modelo);
 
-		txt_placa = new JTextPane();
+		txt_placa = new JTextField();
 		txt_placa.setFont(new Font("Arial", Font.PLAIN, 12));
-		txt_placa.setBounds(60, 141, 111, 20);
+		txt_placa.setBounds(60, 141, 111, 28);
 		painel_principal.add(txt_placa);
 
-		txt_peso = new JTextPane();
+		txt_peso = new JTextField();
 		txt_peso.setFont(new Font("Arial", Font.PLAIN, 12));
-		txt_peso.setBounds(231, 87, 111, 20);
+		txt_peso.setBounds(231, 87, 111, 28);
 		painel_principal.add(txt_peso);
 
-		txt_volume = new JTextPane();
+		txt_volume = new JTextField();
 		txt_volume.setFont(new Font("Arial", Font.PLAIN, 12));
-		txt_volume.setBounds(231, 141, 111, 20);
+		txt_volume.setBounds(231, 141, 111, 28);
 		painel_principal.add(txt_volume);
 
 		JLabel lbl_modelo = new JLabel("Modelo:");
@@ -124,19 +125,19 @@ public class FrmVeiculoFormulario {
 		painel_principal.add(lblVolumeMximo);
 
 		JButton btnSalvar = new JButton();
-		
+
 		if (modo.equals("EXCLUIR")) {
 			btnSalvar.setText("EXCLUIR");
-			
+
 			txt_modelo.setEnabled(false);
 			txt_placa.setEnabled(false);
 			txt_peso.setEnabled(false);
 			txt_volume.setEnabled(false);
-			
+
 		}else {
 			btnSalvar.setText("SALVAR");
 		}
-		
+
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -157,7 +158,7 @@ public class FrmVeiculoFormulario {
 					int resposta = JOptionPane.showConfirmDialog(null,
 							"Tem certeza que deseja excluir " + veiculo.getModelo() + "?", "Aten��o",
 							JOptionPane.YES_NO_OPTION);
-					
+
 					if (resposta == 0) {
 						veiculoDAO.Delete(id);
 					}
@@ -165,7 +166,7 @@ public class FrmVeiculoFormulario {
 				}
 
 				painelVeiculo.atualizarTabela();
-				frame.dispose();
+				dispose();
 
 			}
 		});
@@ -178,6 +179,6 @@ public class FrmVeiculoFormulario {
 	public void criarFormulario(PainelVeiculo painelVeiculo) 
 	{
 		this.painelVeiculo = painelVeiculo;
-		frame.setVisible(true);
+		setVisible(true);
 	}
 }
